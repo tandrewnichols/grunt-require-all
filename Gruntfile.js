@@ -4,9 +4,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-cov');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-open');
-  grunt.loadNpmTasks('grunt-clean');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-travis-matrix');
-
+  grunt.loadTasks('tasks');
 
   grunt.initConfig({
     clean: {
@@ -43,7 +43,16 @@ module.exports = function(grunt) {
         require: 'coffee-script/register'
       },
       test: {
-        src: ['test/helpers/**/*.coffee', 'test/**/*.coffee']
+        src: ['test/helpers/**/*.coffee', 'test/**/*.coffee', '!test/int*']
+      },
+      intSingle: {
+        src: ['test/int-single.coffee']
+      },
+      intMulti: {
+        src: ['test/int-multi.coffee']
+      },
+      intClear: {
+        src: ['test/int-clear.coffee']
       }
     },
     mochacov: {
@@ -80,11 +89,28 @@ module.exports = function(grunt) {
           atBegin: true
         }
       }
+    },
+    require: {
+      single: {
+        src: ['test/fixtures/foo.js']
+      },
+      multi: {
+        src: ['test/fixtures/**/*.js', '!test/fixtures/foo.js']
+      },
+      clear: {
+        options: {
+          clearCache: true
+        },
+        src: ['test/fixtures/foo.js']
+      }
     }
   });
 
   grunt.registerTask('mocha', ['mochaTest:test']);
-  grunt.registerTask('default', ['jshint:all', 'mocha']);
+  grunt.registerTask('default', ['jshint:all', 'mochaTest:test', 'int:single', 'int:multi', 'int:clear']);
   grunt.registerTask('coverage', ['mochacov:html']);
-  grunt.registerTask('ci', ['jshint:all', 'mocha', 'travis']);
+  grunt.registerTask('ci', ['default', 'travis']);
+  grunt.registerTask('int:single', ['require:single', 'mochaTest:intSingle']);
+  grunt.registerTask('int:multi', ['require:multi', 'mochaTest:intMulti']);
+  grunt.registerTask('int:clear', ['require:clear', 'mochaTest:intClear']);
 };

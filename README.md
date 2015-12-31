@@ -22,10 +22,41 @@ Alternatively, install [task-master](http://github.com/tandrewnichols/task-maste
 
 ## The "require" task
 
+Some code coverage libraries don't account for modules that have no test at all (and are therefore not required). This task requires any file passed via the various grunt file formats allowing you to generate accurate code coverage metrics even when some of your modules have no test at all. Often, this is a single entry-point (because of the way the node require tree works), but you can also pass multiple file patterns if necessary.
+
 ### Overview
 
-In your project's Gruntfile, add a section named `require` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `require` to the data object passed into `grunt.initConfig()`, along with one of the grunt file mechanisms. Note that `dest` has no meaning for this library, so you probably want to use the simpler `src` format.
 
+```js
+grunt.initConfig({
+  require: {
+    app: {
+      src: ['lib/app.js']
+    },
+    mutlipleFiles: {
+      src: ['lib/**/*.js', '!lib/app.js']
+    }
+  }
+});
+```
+
+### Options
+
+ The only option currently supported is `clearCache`, which removes any entries added to the cache by the `require` task.
+
+```js
+grunt.initConfig({
+  require: {
+    app: {
+      options: {
+        clearCache: true
+      }
+      src: ['lib/app.js']
+    }
+  }
+});
+```
 
 ## Contributing
 
