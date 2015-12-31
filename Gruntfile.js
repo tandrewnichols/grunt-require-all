@@ -1,18 +1,29 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
-grunt.loadNpmTasks('grunt-contrib-watch');
-grunt.loadNpmTasks('grunt-mocha-cov');
-grunt.loadNpmTasks('grunt-mocha-test');
-grunt.loadNpmTasks('grunt-open');
-grunt.loadNpmTasks('grunt-clean');
-grunt.loadNpmTasks('grunt-travis-matrix');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-mocha-cov');
+  grunt.loadNpmTasks('grunt-mocha-test');
+  grunt.loadNpmTasks('grunt-open');
+  grunt.loadNpmTasks('grunt-clean');
+  grunt.loadNpmTasks('grunt-travis-matrix');
 
 
   grunt.initConfig({
     clean: {
       coverage: 'coverage'
     },
-    
+    jshint: {
+      options: {
+        reporter: require('jshint-stylish'),
+        eqeqeq: true,
+        es3: true,
+        indent: 2,
+        newcap: true,
+        quotmark: 'single',
+        boss: true
+      },
+      all: ['tasks/**/*.js']
+    },
     matrix: {
       v4: 'codeclimate-test-reporter < coverage/lcov.info'
     },
