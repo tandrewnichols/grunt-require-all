@@ -25,7 +25,7 @@ module.exports = function(grunt) {
       all: ['tasks/**/*.js']
     },
     matrix: {
-      'v4.2': 'codeclimate-test-reporter < coverage/lcov.info'
+      'v4.2': 'codeclimate-test-reporter < coverage/coverage.lcov'
     },
     travis: {
       options: {
