@@ -25,13 +25,13 @@ module.exports = function(grunt) {
       all: ['tasks/**/*.js']
     },
     matrix: {
-      v4: 'codeclimate-test-reporter < coverage/lcov.info'
+      'v4.0': 'codeclimate-test-reporter < coverage/lcov.info'
     },
     travis: {
       options: {
         targets: {
           test: '{{ version }}',
-          when: 'v4',
+          when: 'v4.0',
           tasks: ['istanbul:unit', 'matrix:v4']
         }
       }
