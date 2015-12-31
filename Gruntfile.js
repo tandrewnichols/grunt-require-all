@@ -64,7 +64,7 @@ module.exports = function(grunt) {
           require: 'coffee-script/register',
           output: 'coverage/coverage.lcov'
         },
-        src: ['test/**/*.coffee'],
+        src: ['test/require.coffee'],
       },
       html: {
         options: {
@@ -73,7 +73,7 @@ module.exports = function(grunt) {
           require: 'coffee-script/register',
           output: 'coverage/coverage.html'
         },
-        src: ['test/**/*.coffee']
+        src: ['test/require.coffee']
       }
     },
     open: {
