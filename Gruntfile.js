@@ -32,7 +32,7 @@ module.exports = function(grunt) {
         targets: {
           test: '{{ version }}',
           when: 'v4.2',
-          tasks: ['mochacov:lcov', 'matrix:v4']
+          tasks: ['mochacov:lcov', 'matrix:v4.2']
         }
       }
     },
